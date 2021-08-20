@@ -18,11 +18,11 @@ steps:
   - git config user.name drone
   - git config user.email drone
   - git commit -m "[CI SKIP]" --allow-empty
-  - git push origin master
+  - git push origin main
 
 trigger:
   branch:
-  - master
+  - main
   event:
   - push
 
