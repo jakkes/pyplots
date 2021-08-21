@@ -1,7 +1,8 @@
 """Tools for building plots in a cartesian coordinate system."""
 
 
-from ._line import Line
+from ._plot_object import PlotObject
 from ._plot import Plot
+from ._line import Line
 
-__all__ = ["Line", "Plot"]
+__all__ = ["Line", "Plot", "PlotObject"]
