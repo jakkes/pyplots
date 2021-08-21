@@ -37,7 +37,6 @@ class Line(PlotObject):
 
     def __init__(
         self,
-        /,
         x: Sequence[float],
         y: Optional[Sequence[float]] = None,
         *,

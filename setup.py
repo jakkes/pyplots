@@ -1,11 +1,13 @@
 import setuptools
 
+from plots import __version__
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="plots",
-    version="0.0.1",
+    name="pyplots",
+    version=__version__,
     author="Jakob Stigenberg",
     description="Wraps matplotlib for easier plotting.",
     long_description=long_description,
