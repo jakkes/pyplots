@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.9.2" />
+<meta name="generator" content="pdoc 0.10.0" />
 <title>plots.cartesian API documentation</title>
 <meta name="description" content="Tools for building plots in a cartesian coordinate system." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
@@ -30,10 +30,11 @@
 <pre><code class="python">&#34;&#34;&#34;Tools for building plots in a cartesian coordinate system.&#34;&#34;&#34;
 
 
-from ._line import Line
+from ._plot_object import PlotObject
 from ._plot import Plot
+from ._line import Line
 
-__all__ = [&#34;Line&#34;, &#34;Plot&#34;]</code></pre>
+__all__ = [&#34;Line&#34;, &#34;Plot&#34;, &#34;PlotObject&#34;]</code></pre>
 </details>
 </section>
 <section>
@@ -47,38 +48,46 @@ __all__ = [&#34;Line&#34;, &#34;Plot&#34;]</code></pre>
 <dl>
 <dt id="plots.cartesian.Line"><code class="flex name class">
 <span>class <span class="ident">Line</span></span>
-<span>(</span><span>x: Sequence[float], y: Union[Sequence[float], NoneType] = None, line_type: <a title="plots.cartesian.Line.Type" href="#plots.cartesian.Line.Type">Line.Type</a> = LineType.SOLID, marker_type: <a title="plots.cartesian.Line.MarkerType" href="#plots.cartesian.Line.MarkerType">Line.MarkerType</a> = MarkerType.NONE, label: Union[str, NoneType] = None)</span>
+<span>(</span><span>x: Sequence[float], y: Optional[Sequence[float]] = None, *, line_type: <a title="plots.cartesian.Line.Type" href="#plots.cartesian.Line.Type">Line.Type</a> = LineType.SOLID, marker_type: <a title="plots.cartesian.Line.Marker" href="#plots.cartesian.Line.Marker">Line.Marker</a> = MarkerType.NONE, label: Optional[str] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Line object, can be added to a cartesian plot object.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>x</code></strong> :&ensp;<code>Sequence[float]</code></dt>
-<dd>[description]</dd>
+<dd>Horizontal axis values.</dd>
 <dt><strong><code>y</code></strong> :&ensp;<code>Optional[Sequence[float]]</code>, optional</dt>
-<dd>[description]. Defaults to None.</dd>
+<dd>Vertical axis values. If None, then
+<code>x</code> is used as <code>y</code> and <code>x</code> is replaced by the value indices of <code>y</code>.
+Defaults to None.</dd>
 <dt><strong><code>line_type</code></strong> :&ensp;<code><a title="plots.cartesian.Line.Type" href="#plots.cartesian.Line.Type">Line.Type</a></code>, optional</dt>
-<dd>[description]. Defaults to LineType.SOLID.</dd>
-<dt><strong><code>marker_type</code></strong> :&ensp;<code><a title="plots.cartesian.Line.MarkerType" href="#plots.cartesian.Line.MarkerType">Line.MarkerType</a></code>, optional</dt>
-<dd>[description]. Defaults to MarkerType.NONE.</dd>
+<dd>Defaults to LineType.SOLID.</dd>
+<dt><strong><code>marker_type</code></strong> :&ensp;<code>Line.MarkerType</code>, optional</dt>
+<dd>Defaults to MarkerType.NONE.</dd>
 <dt><strong><code>label</code></strong> :&ensp;<code>Optional[str]</code>, optional</dt>
-<dd>[description]. Defaults to None.</dd>
+<dd>If <code>None</code>, the line is omitted from the
+legend. Defaults to None.</dd>
 </dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="plots.cartesian.PlotObject" href="#plots.cartesian.PlotObject">PlotObject</a></li>
+<li>abc.ABC</li>
+</ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="plots.cartesian.Line.MarkerType"><code class="name">var <span class="ident">MarkerType</span></code></dt>
+<dt id="plots.cartesian.Line.Marker"><code class="name">var <span class="ident">Marker</span></code></dt>
 <dd>
-<div class="desc"><p>Line marker type enumeration.</p></div>
+<div class="desc"><p>Data point marker symbol.</p></div>
 </dd>
 <dt id="plots.cartesian.Line.Type"><code class="name">var <span class="ident">Type</span></code></dt>
 <dd>
-<div class="desc"><p>Line type enumeration.</p></div>
+<div class="desc"><p>Line type.</p></div>
 </dd>
 </dl>
 </dd>
 <dt id="plots.cartesian.Plot"><code class="flex name class">
 <span>class <span class="ident">Plot</span></span>
-<span>(</span><span>size: Tuple[int, int] = (6.4, 4.8), logy: bool = False, logx: bool = False)</span>
+<span>(</span><span>size: Tuple[int, int] = (6.4, 4.8), logy: bool = False, logx: bool = False, legend: bool = False, legend_location: Union[ForwardRef('Plot.Legend.Location'), Tuple[int, int]] = LegendLocation.BEST)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Figure with a single plot of cartesian axes.</p>
@@ -93,11 +102,23 @@ False.</dd>
 <dt><strong><code>logx</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>If True, the x-axis is logarithmic. Defaults to
 False.</dd>
-</dl></div>
+<dt><strong><code>legend</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If True, a legend is displayed. Defaults to False.</dd>
+</dl>
+<p>legend_location (Union[Plot.Legend.Location, Tuple[int, int]], optional):
+Determines the location of the legend. Defaults to
+<code>Plot.Legend.Location.BEST</code>. May also be given in coordinates.</p></div>
+<h3>Class variables</h3>
+<dl>
+<dt id="plots.cartesian.Plot.Legend"><code class="name">var <span class="ident">Legend</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
 <h3>Methods</h3>
 <dl>
-<dt id="plots.cartesian.Plot.add_line"><code class="name flex">
-<span>def <span class="ident">add_line</span></span>(<span>self)</span>
+<dt id="plots.cartesian.Plot.add_object"><code class="name flex">
+<span>def <span class="ident">add_object</span></span>(<span>self, obj: <a title="plots.cartesian.PlotObject" href="#plots.cartesian.PlotObject">PlotObject</a>)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -105,11 +126,80 @@ False.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def add_line(self):
-    pass</code></pre>
+<pre><code class="python">def add_object(self, obj: cartesian.PlotObject):
+    self._plot_objects.add(obj)</code></pre>
+</details>
+</dd>
+<dt id="plots.cartesian.Plot.remove_object"><code class="name flex">
+<span>def <span class="ident">remove_object</span></span>(<span>self, obj: <a title="plots.cartesian.PlotObject" href="#plots.cartesian.PlotObject">PlotObject</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_object(self, obj: cartesian.PlotObject):
+    self._plot_objects.remove(obj)</code></pre>
+</details>
+</dd>
+<dt id="plots.cartesian.Plot.save"><code class="name flex">
+<span>def <span class="ident">save</span></span>(<span>self, path: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Saves the plot to the given path.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>File path to which the figure should be saved.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save(self, path: str):
+    &#34;&#34;&#34;Saves the plot to the given path.
+
+    Args:
+        path (str): File path to which the figure should be saved.
+    &#34;&#34;&#34;
+    self._render()
+    plt.savefig(path)
+    self._close()</code></pre>
+</details>
+</dd>
+<dt id="plots.cartesian.Plot.show"><code class="name flex">
+<span>def <span class="ident">show</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renders and displays the plot.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show(self):
+    &#34;&#34;&#34;Renders and displays the plot.&#34;&#34;&#34;
+    self._render()
+    plt.show()
+    self._close()</code></pre>
 </details>
 </dd>
 </dl>
+</dd>
+<dt id="plots.cartesian.PlotObject"><code class="flex name class">
+<span>class <span class="ident">PlotObject</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="plots.cartesian.Line" href="#plots.cartesian.Line">Line</a></li>
+</ul>
 </dd>
 </dl>
 </section>
@@ -130,15 +220,22 @@ False.</dd>
 <li>
 <h4><code><a title="plots.cartesian.Line" href="#plots.cartesian.Line">Line</a></code></h4>
 <ul class="">
-<li><code><a title="plots.cartesian.Line.MarkerType" href="#plots.cartesian.Line.MarkerType">MarkerType</a></code></li>
+<li><code><a title="plots.cartesian.Line.Marker" href="#plots.cartesian.Line.Marker">Marker</a></code></li>
 <li><code><a title="plots.cartesian.Line.Type" href="#plots.cartesian.Line.Type">Type</a></code></li>
 </ul>
 </li>
 <li>
 <h4><code><a title="plots.cartesian.Plot" href="#plots.cartesian.Plot">Plot</a></code></h4>
 <ul class="">
-<li><code><a title="plots.cartesian.Plot.add_line" href="#plots.cartesian.Plot.add_line">add_line</a></code></li>
+<li><code><a title="plots.cartesian.Plot.Legend" href="#plots.cartesian.Plot.Legend">Legend</a></code></li>
+<li><code><a title="plots.cartesian.Plot.add_object" href="#plots.cartesian.Plot.add_object">add_object</a></code></li>
+<li><code><a title="plots.cartesian.Plot.remove_object" href="#plots.cartesian.Plot.remove_object">remove_object</a></code></li>
+<li><code><a title="plots.cartesian.Plot.save" href="#plots.cartesian.Plot.save">save</a></code></li>
+<li><code><a title="plots.cartesian.Plot.show" href="#plots.cartesian.Plot.show">show</a></code></li>
 </ul>
+</li>
+<li>
+<h4><code><a title="plots.cartesian.PlotObject" href="#plots.cartesian.PlotObject">PlotObject</a></code></h4>
 </li>
 </ul>
 </li>
@@ -146,7 +243,7 @@ False.</dd>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
 </footer>
 </body>
 </html>
