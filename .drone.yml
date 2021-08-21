@@ -7,7 +7,7 @@ steps:
 - name: test and docs
   image: python:3.7.9-slim
   commands:
-  - pip install pdoc3==0.9.2 -r requirements.txt
+  - pip install pdoc3 -r requirements.txt
   - pytest
   - rm -rf ./docs/plots/
   - pdoc3 ./plots --html -o docs

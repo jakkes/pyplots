@@ -7,7 +7,7 @@ from ._spin import spin
 
 
 __all__ = ["cartesian", "spin"]
-__version__ = "0.0.1"
+__version__ = "<%<%VERSION%>%>"
 
 
 def _fix_pdoc():
