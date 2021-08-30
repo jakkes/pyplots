@@ -127,7 +127,7 @@ Determines the location of the legend. Defaults to
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def add_object(self, obj: cartesian.PlotObject):
-    self._plot_objects.add(obj)</code></pre>
+    self._plot_objects[obj] = None</code></pre>
 </details>
 </dd>
 <dt id="plots.cartesian.Plot.remove_object"><code class="name flex">
@@ -140,7 +140,7 @@ Determines the location of the legend. Defaults to
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def remove_object(self, obj: cartesian.PlotObject):
-    self._plot_objects.remove(obj)</code></pre>
+    del self._plot_objects[obj]</code></pre>
 </details>
 </dd>
 <dt id="plots.cartesian.Plot.save"><code class="name flex">
