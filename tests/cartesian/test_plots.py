@@ -1,40 +1,29 @@
 import os
-import plots
+from plots import cartesian
+import itertools
+import numpy as np
 
 
-def test_save():
-    plt = plots.cartesian.Plot()
-    line = plots.cartesian.Line(
-        [1, 2, 3],
-        line_type=plots.cartesian.Line.Type.DASHED,
-        marker_type=plots.cartesian.Line.Marker.CIRCLE,
-    )
-    plt.add_object(line)
+def plot(i, x, y1, y2, legend, legend_location):
+    plt = cartesian.Plot(legend=legend, legend_location=legend_location)
+    plt.add_object(cartesian.Line(x, y1, label="Line one"))
+    plt.add_object(cartesian.Line(x, y2, label="Line two"))
+    plt.save(f"local/tests/cartesian/test_plots/test_save{i}.png")
+
+
+def test_plots():
+    x = np.linspace(-1, 1, 51)
+    y1 = x ** 2
+    y2 = x ** 3
+    
     os.makedirs("local/tests/cartesian/test_plots", exist_ok=True)
-    plt.save("local/tests/cartesian/test_plots/test_save.png")
 
-
-def test_two_lines():
-    plt = plots.cartesian.Plot(
-        legend=True, legend_location=plots.cartesian.Plot.Legend.Location.LOWER_RIGHT
+    args = itertools.product(
+        [x],
+        [y1],
+        [y2],
+        [True],
+        cartesian.Plot.Legend.Location
     )
-    plt.add_object(
-        plots.cartesian.Line(
-            [1, 2, 3],
-            [1, 4, 9],
-            line_type=plots.cartesian.Line.Type.DASHED,
-            marker_type=plots.cartesian.Line.Marker.CIRCLE,
-            label="Line one",
-        )
-    )
-    plt.add_object(
-        plots.cartesian.Line(
-            [4, 5, 6],
-            [16, 25, 36],
-            line_type=plots.cartesian.Line.Type.SOLID,
-            marker_type=plots.cartesian.Line.Marker.STAR,
-            label="Line two",
-        )
-    )
-    os.makedirs("local/tests/cartesian/test_plots", exist_ok=True)
-    plt.save("local/tests/cartesian/test_plots/test_two_lines.png")
+    for i, arg in enumerate(args):
+        plot(i, *arg)
