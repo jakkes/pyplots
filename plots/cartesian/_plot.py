@@ -1,41 +1,25 @@
-from enum import Enum
-from typing import Dict, Tuple, Union
+from typing import Dict, Optional, Tuple, Union
 import uuid
 
 import matplotlib.pyplot as plt
 
+import plots
 import plots.cartesian as cartesian
 
 
-def _get_plot_fn(logx: bool, logy: bool):
+def _get_plot_fn(ax: plt.Axes, logx: bool, logy: bool):
     if logy and logx:
-        return plt.loglog
+        return ax.loglog
     elif logy:
-        return plt.semilogy
+        return ax.semilogy
     elif logx:
-        return plt.semilogx
+        return ax.semilogx
     else:
-        return plt.plot
-
-
-class LegendLocation(str, Enum):
-    BEST = "best"
-    UPPER_LEFT = "upper left"
-    UPPER_CENTER = "upper center"
-    UPPER_RIGHT = "upper right"
-    CENTER_LEFT = "center left"
-    CENTER = "center"
-    CENTER_RIGHT = "center right"
-    LOWER_LEFT = "lower left"
-    LOWER_CENTER = "lower center"
-    LOWER_RIGHT = "lower right"
+        return ax.plot
 
 
 class Plot:
     """Figure with a single plot of cartesian axes."""
-
-    class Legend:
-        Location = LegendLocation
 
     def __init__(
         self,
@@ -44,8 +28,8 @@ class Plot:
         logx: bool = False,
         legend: bool = False,
         legend_location: Union[
-            "Plot.Legend.Location", Tuple[int, int]
-        ] = LegendLocation.BEST,
+            "plots.Legend.Location", Tuple[int, int]
+        ] = plots.Legend.Location.BEST,
     ):
         """
         Args:
@@ -60,9 +44,11 @@ class Plot:
                 Determines the location of the legend. Defaults to
                 `Plot.Legend.Location.BEST`. May also be given in coordinates.
         """
-        self._id = str(uuid.uuid4())
+        self._id: Optional[str] = None
         self._size = size
-        self._plot_fn = _get_plot_fn(logx, logy)
+        self._logx = logx
+        self._logy = logy
+        self._ax: plt.Axes = None
         self._legend = legend
         self._legend_location = legend_location
 
@@ -93,12 +79,21 @@ class Plot:
 
     def _close(self):
         """Closes the figure."""
-        plt.close(self._id)
+        if self._id is not None:
+            plt.close(self._id)
 
     def _render(self):
-        plt.figure(self._id, self._size)
+        if self._ax is None:
+            self._id = str(uuid.uuid4())
+            plt.figure(self._id, self._size)
+            self._ax = plt.axes()
+
+        plot_fn = _get_plot_fn(self._ax, self._logx, self._logy)
         for obj in self._plot_objects:
-            obj._render(self._plot_fn)
+            obj._render(plot_fn)
 
         if self._legend:
             plt.legend(loc=self._legend_location)
+
+    def _set_ax(self, ax: plt.Axes):
+        self._ax = ax
