@@ -3,10 +3,9 @@
 """
 
 from . import cartesian
-from ._spin import spin
 
 
-__all__ = ["cartesian", "spin"]
+__all__ = ["cartesian"]
 __version__ = "<%<%VERSION%>%>"
 
 
