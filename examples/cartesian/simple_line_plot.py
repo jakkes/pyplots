@@ -5,14 +5,25 @@ from plots import cartesian
 
 
 def main():
+
+    # Select x values.
     x = np.linspace(-1, 1, 100)
-    plot = cartesian.Plot()
+    
+    # Create a plot with cartesian axes. Let the plot include a legend.
+    plot = cartesian.Plot(legend=True)
 
     for power in range(1, 6):
+        
+        # Compute y values.
         y = x ** power
-        line = cartesian.Line(x, y)
+
+        # Create a line of the x and y values.
+        line = cartesian.Line(x, y, label=f"$y=x**{power}$")
+
+        # Add line to the plot.
         plot.add_object(line)
 
+    # Display plot.
     plot.show()
 
 
