@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Set, Tuple, Union
+from typing import Dict, Tuple, Union
 import uuid
 
 import matplotlib.pyplot as plt
@@ -66,13 +66,14 @@ class Plot:
         self._legend = legend
         self._legend_location = legend_location
 
-        self._plot_objects: Set[cartesian.PlotObject] = set()
+        # Dictionary of object -> None, works like a ordered hash set.
+        self._plot_objects: Dict[cartesian.PlotObject, None] = {}
 
     def add_object(self, obj: cartesian.PlotObject):
-        self._plot_objects.add(obj)
+        self._plot_objects[obj] = None
 
     def remove_object(self, obj: cartesian.PlotObject):
-        self._plot_objects.remove(obj)
+        del self._plot_objects[obj]
 
     def save(self, path: str):
         """Saves the plot to the given path.
