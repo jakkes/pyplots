@@ -1,15 +1,17 @@
 import os
+
+from matplotlib.legend import Legend
 import plots
 from plots import cartesian
 import itertools
 import numpy as np
 
 
-def plot(i, x, y1, y2, legend, legend_location):
-    plt = cartesian.Plot(legend=legend, legend_location=legend_location)
+def plot(i, x, y1, y2, logx, logy, legend, legend_location):
+    plt = cartesian.Plot(logx=logx, logy=logy, legend=legend, legend_location=legend_location)
     plt.add_object(cartesian.Line(x, y1, label="Line one"))
     plt.add_object(cartesian.Line(x, y2, label="Line two"))
-    plt.save(f"local/tests/cartesian/test_plots/test_save{i}.png")
+    plt.save(f"local/tests/cartesian/test_plots/logx-{logx}-logy-{logy}-legend_loc-{legend_location}.png")
 
 
 def test_plots():
@@ -23,8 +25,10 @@ def test_plots():
         [x],
         [y1],
         [y2],
+        [True, False],
+        [True, False],
         [True],
-        plots.Legend.Location
+        [plots.Legend.Location.BEST, plots.Legend.Location.CENTER]
     )
     for i, arg in enumerate(args):
         plot(i, *arg)
