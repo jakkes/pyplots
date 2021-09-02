@@ -33,8 +33,9 @@
 from ._plot_object import PlotObject
 from ._plot import Plot
 from ._line import Line
+from ._sub_plots import SubPlots
 
-__all__ = [&#34;Line&#34;, &#34;Plot&#34;, &#34;PlotObject&#34;]</code></pre>
+__all__ = [&#34;Line&#34;, &#34;Plot&#34;, &#34;PlotObject&#34;, &#34;SubPlots&#34;]</code></pre>
 </details>
 </section>
 <section>
@@ -87,7 +88,7 @@ legend. Defaults to None.</dd>
 </dd>
 <dt id="plots.cartesian.Plot"><code class="flex name class">
 <span>class <span class="ident">Plot</span></span>
-<span>(</span><span>size: Tuple[int, int] = (6.4, 4.8), logy: bool = False, logx: bool = False, legend: bool = False, legend_location: Union[ForwardRef('Plot.Legend.Location'), Tuple[int, int]] = LegendLocation.BEST)</span>
+<span>(</span><span>size: Tuple[int, int] = (6.4, 4.8), logy: bool = False, logx: bool = False, legend: bool = False, legend_location: Union[ForwardRef('<a title="plots.Legend.Location" href="../index.html#plots.Legend.Location">Legend.Location</a>'), Tuple[int, int]] = Location.BEST)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Figure with a single plot of cartesian axes.</p>
@@ -108,13 +109,11 @@ False.</dd>
 <p>legend_location (Union[Plot.Legend.Location, Tuple[int, int]], optional):
 Determines the location of the legend. Defaults to
 <code>Plot.Legend.Location.BEST</code>. May also be given in coordinates.</p></div>
-<h3>Class variables</h3>
-<dl>
-<dt id="plots.cartesian.Plot.Legend"><code class="name">var <span class="ident">Legend</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>plots._base_plot.BasePlot</li>
+<li>abc.ABC</li>
+</ul>
 <h3>Methods</h3>
 <dl>
 <dt id="plots.cartesian.Plot.add_object"><code class="name flex">
@@ -127,7 +126,7 @@ Determines the location of the legend. Defaults to
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def add_object(self, obj: cartesian.PlotObject):
-    self._plot_objects.add(obj)</code></pre>
+    self._plot_objects[obj] = None</code></pre>
 </details>
 </dd>
 <dt id="plots.cartesian.Plot.remove_object"><code class="name flex">
@@ -140,48 +139,7 @@ Determines the location of the legend. Defaults to
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def remove_object(self, obj: cartesian.PlotObject):
-    self._plot_objects.remove(obj)</code></pre>
-</details>
-</dd>
-<dt id="plots.cartesian.Plot.save"><code class="name flex">
-<span>def <span class="ident">save</span></span>(<span>self, path: str)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Saves the plot to the given path.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
-<dd>File path to which the figure should be saved.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def save(self, path: str):
-    &#34;&#34;&#34;Saves the plot to the given path.
-
-    Args:
-        path (str): File path to which the figure should be saved.
-    &#34;&#34;&#34;
-    self._render()
-    plt.savefig(path)
-    self._close()</code></pre>
-</details>
-</dd>
-<dt id="plots.cartesian.Plot.show"><code class="name flex">
-<span>def <span class="ident">show</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Renders and displays the plot.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def show(self):
-    &#34;&#34;&#34;Renders and displays the plot.&#34;&#34;&#34;
-    self._render()
-    plt.show()
-    self._close()</code></pre>
+    del self._plot_objects[obj]</code></pre>
 </details>
 </dd>
 </dl>
@@ -199,6 +157,40 @@ inheritance.</p></div>
 <h3>Subclasses</h3>
 <ul class="hlist">
 <li><a title="plots.cartesian.Line" href="#plots.cartesian.Line">Line</a></li>
+</ul>
+</dd>
+<dt id="plots.cartesian.SubPlots"><code class="flex name class">
+<span>class <span class="ident">SubPlots</span></span>
+<span>(</span><span>rows: int, cols: int, size: Tuple[int, int] = (6.4, 4.8), legend: bool = False, legend_location: Union[ForwardRef('<a title="plots.Legend.Location" href="../index.html#plots.Legend.Location">Legend.Location</a>'), Tuple[int, int]] = Location.BEST)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Figure containing multiple subplots of cartesian axes.</p>
+<p>A subplot may be accessed by its row and column:</p>
+<pre><code class="language-python">subplots = SubPlots(2, 2)
+upper_left = subplots[0, 0]
+upper_right = subplots[0, 1]
+lower_left = subplots[1, 0]
+lower_right = subplots[1, 1]
+</code></pre>
+<p>These may then be treated as a <code><a title="plots.cartesian.Plot" href="#plots.cartesian.Plot">Plot</a></code>, which is their true type.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>rows</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of rows.</dd>
+<dt><strong><code>cols</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of columns.</dd>
+<dt>size (Tuple[int, int], optional):Size of the figure in inches,</dt>
+<dt><code>(width, height)</code>. Defaults to (6.4, 4.8).</dt>
+<dt><strong><code>legend</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If True, a legend is displayed. Defaults to False.</dd>
+</dl>
+<p>legend_location (Union[Plot.Legend.Location, Tuple[int, int]], optional):
+Determines the location of the legend. Defaults to
+<code>plots.Legend.Location.BEST</code>. May also be given in coordinates.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>plots._base_plot.BasePlot</li>
+<li>abc.ABC</li>
 </ul>
 </dd>
 </dl>
@@ -227,15 +219,15 @@ inheritance.</p></div>
 <li>
 <h4><code><a title="plots.cartesian.Plot" href="#plots.cartesian.Plot">Plot</a></code></h4>
 <ul class="">
-<li><code><a title="plots.cartesian.Plot.Legend" href="#plots.cartesian.Plot.Legend">Legend</a></code></li>
 <li><code><a title="plots.cartesian.Plot.add_object" href="#plots.cartesian.Plot.add_object">add_object</a></code></li>
 <li><code><a title="plots.cartesian.Plot.remove_object" href="#plots.cartesian.Plot.remove_object">remove_object</a></code></li>
-<li><code><a title="plots.cartesian.Plot.save" href="#plots.cartesian.Plot.save">save</a></code></li>
-<li><code><a title="plots.cartesian.Plot.show" href="#plots.cartesian.Plot.show">show</a></code></li>
 </ul>
 </li>
 <li>
 <h4><code><a title="plots.cartesian.PlotObject" href="#plots.cartesian.PlotObject">PlotObject</a></code></h4>
+</li>
+<li>
+<h4><code><a title="plots.cartesian.SubPlots" href="#plots.cartesian.SubPlots">SubPlots</a></code></h4>
 </li>
 </ul>
 </li>
