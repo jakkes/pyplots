@@ -21,17 +21,19 @@ def main():
     line2 = cartesian.Line(x, y2, label="y=x^4")
     plot.add_object(line2)
     
-    # Assume x contains up to 5% error, for whatever reason
-    x_error = cartesian.Line.ErrorBars.symmetric(x * 0.05)
-    line1.set_x_error_bars(x_error)
-    line2.set_x_error_bars(x_error)
+    # Assume x contains up to 5% error, for whatever reason, and that the error is
+    # propagated to y.
+    x_error = x * 0.05
+    y1_error = y1 * 1.05**2
+    y2_error = y2 * 1.05**4
 
-    # Let this error propagate through x^2 and x^4
-    y1_error = cartesian.Line.ErrorBars.symmetric(y1 * 1.05**2)
-    line1.set_y_error_bars(y1_error)
+    # Create error bars
+    error1 = cartesian.Line.ErrorBars(x_error, y1_error)
+    error2 = cartesian.Line.ErrorBars(x_error, y2_error)
 
-    y2_error = cartesian.Line.ErrorBars.symmetric(y2 * 1.05**4)
-    line2.set_y_error_bars(y2_error)
+    # Add error bars
+    line1.set_error_bars(error1)
+    line2.set_error_bars(error2)
 
     # Show plot
     plot.show()

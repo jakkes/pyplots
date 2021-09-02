@@ -1,4 +1,4 @@
-from typing import Callable, Optional, Sequence, Tuple
+from typing import Any, Dict, Optional, Sequence, Tuple, Union
 from enum import Enum
 
 import numpy as np
@@ -30,11 +30,6 @@ class MarkerType(str, Enum):
     """Star marker."""
 
 
-class _ErrorBars:
-    def __init__(self, data):
-        self._data = data
-
-
 class Line(PlotObject):
     """Line object, can be added to a cartesian plot object."""
 
@@ -44,26 +39,29 @@ class Line(PlotObject):
     class ErrorBars:
         """Adds error bars to a line plot."""
 
-        def __init__(self) -> None:
-            """Uncallable. Create ErrorBars through the static methods `symmetric` or
-            `asymmetric`."""
-            raise NotImplementedError
+        def __init__(
+            self,
+            x_error: Union[Sequence[float], Sequence[Tuple[float, float]]]=None,
+            y_error: Union[Sequence[float], Sequence[Tuple[float, float]]]=None,
+        ) -> None:
+            """
+            Args:
+                x_error (Union[Sequence[float], Sequence[Tuple[float, float]]],
+                    optional): Error of x-values. If None, no error bars are added. If a
+                    sequence of floats, then these values are treated as symmetric +/-
+                    errors. If a sequence of float-pairs, these denote the lower and
+                    upper bounds respectively. Defaults to None.
+                y_error (Union[Sequence[float], Sequence[Tuple[float, float]]],
+                    optional): Error of y-values. See format help on `x_values`.
+            """
+            self._x_error = np.array(x_error).transpose()
+            self._y_error = np.array(y_error).transpose()
 
-        @property
-        def _data(self) -> Sequence[float]:
-            raise NotImplementedError
-
-        @staticmethod
-        def symmetric(data: Sequence[float]) -> "Line.ErrorBars":
-            """Creates error bars from a sequence of floats. Each value denotes the
-            symmetric +/- value of each data point in the line."""
-            return _ErrorBars(data)
-
-        @staticmethod
-        def asymmetric(data: Sequence[Tuple[float, float]]) -> "Line.ErrorBars":
-            """Creates error bars from a sequence of float-pairs. Each pair denotes the
-            lower and upper error bound, respectively."""
-            return _ErrorBars(np.array(data).transpose())
+        def _get_kwargs(self) -> Dict[str, Any]:
+            return {
+                "xerr": self._x_error,
+                "yerr": self._y_error
+            }
 
     def __init__(
         self,
@@ -86,9 +84,8 @@ class Line(PlotObject):
                 legend. Defaults to None.
         """
         self._x = x
-        self._x_error = None
         self._y = y
-        self._y_error = None
+        self._error = None
         self._line_type = line_type
         self._marker_type = marker_type
         self._label = label
@@ -98,27 +95,20 @@ class Line(PlotObject):
             self._x = np.arange(len(x))
 
     def _render(self, axes: plt.Axes):
+        error_kwargs = {} if self._error is None else self._error._get_kwargs()
+        
         axes.errorbar(
             self._x,
             self._y,
-            self._y_error,
-            self._x_error,
             fmt=f"{self._marker_type}{self._line_type}",
             label=self._label,
+            **error_kwargs
         )
 
-    def set_x_error_bars(self, error_bars: "Line.ErrorBars"):
+    def set_error_bars(self, error_bars: "Line.ErrorBars"):
         """Adds error bars to the x-values of the data points.
 
         Args:
             error_bars (Line.ErrorBars): Error bars
         """
-        self._x_error = error_bars._data
-
-    def set_y_error_bars(self, error_bars: "Line.ErrorBars"):
-        """Adds error bars to the y-values of the data points.
-
-        Args:
-            error_bars (Line.ErrorBars): Error bars
-        """
-        self._y_error = error_bars._data
+        self._error = error_bars
