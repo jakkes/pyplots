@@ -2,10 +2,12 @@
 .. include:: ../README.md
 """
 
+from ._legend import Legend
+from ._base_plot import BasePlot
 from . import cartesian
 
 
-__all__ = ["cartesian"]
+__all__ = ["cartesian", "Legend"]
 __version__ = "<%<%VERSION%>%>"
 
 
