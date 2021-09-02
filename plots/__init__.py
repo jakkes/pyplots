@@ -3,6 +3,7 @@
 """
 
 from ._legend import Legend
+from ._base_plot import BasePlot
 from . import cartesian
 
 

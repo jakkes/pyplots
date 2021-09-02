@@ -18,7 +18,7 @@ def _get_plot_fn(ax: plt.Axes, logx: bool, logy: bool):
         return ax.plot
 
 
-class Plot:
+class Plot(plots.BasePlot):
     """Figure with a single plot of cartesian axes."""
 
     def __init__(
@@ -30,6 +30,7 @@ class Plot:
         legend_location: Union[
             "plots.Legend.Location", Tuple[int, int]
         ] = plots.Legend.Location.BEST,
+        _owns_figure: bool = True,
     ):
         """
         Args:
@@ -44,13 +45,15 @@ class Plot:
                 Determines the location of the legend. Defaults to
                 `Plot.Legend.Location.BEST`. May also be given in coordinates.
         """
-        self._id: Optional[str] = None
-        self._size = size
+        super().__init__(
+            size=size,
+            legend=legend,
+            legend_location=legend_location,
+            _owns_figure=_owns_figure,
+        )
+
         self._logx = logx
         self._logy = logy
-        self._ax: plt.Axes = None
-        self._legend = legend
-        self._legend_location = legend_location
 
         # Dictionary of object -> None, works like a ordered hash set.
         self._plot_objects: Dict[cartesian.PlotObject, None] = {}
@@ -61,39 +64,10 @@ class Plot:
     def remove_object(self, obj: cartesian.PlotObject):
         del self._plot_objects[obj]
 
-    def save(self, path: str):
-        """Saves the plot to the given path.
+    def _generate_axes(self) -> plt.Axes:
+        return plt.axes()
 
-        Args:
-            path (str): File path to which the figure should be saved.
-        """
-        self._render()
-        plt.savefig(path)
-        self._close()
-
-    def show(self):
-        """Renders and displays the plot."""
-        self._render()
-        plt.show()
-        self._close()
-
-    def _close(self):
-        """Closes the figure."""
-        if self._id is not None:
-            plt.close(self._id)
-
-    def _render(self):
-        if self._ax is None:
-            self._id = str(uuid.uuid4())
-            plt.figure(self._id, self._size)
-            self._ax = plt.axes()
-
-        plot_fn = _get_plot_fn(self._ax, self._logx, self._logy)
+    def _render(self, axes: plt.Axes):
+        plot_fn = _get_plot_fn(axes, self._logx, self._logy)
         for obj in self._plot_objects:
             obj._render(plot_fn)
-
-        if self._legend:
-            plt.legend(loc=self._legend_location)
-
-    def _set_ax(self, ax: plt.Axes):
-        self._ax = ax
