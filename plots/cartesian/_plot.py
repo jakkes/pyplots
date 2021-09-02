@@ -7,17 +7,6 @@ import plots
 import plots.cartesian as cartesian
 
 
-def _get_plot_fn(ax: plt.Axes, logx: bool, logy: bool):
-    if logy and logx:
-        return ax.loglog
-    elif logy:
-        return ax.semilogy
-    elif logx:
-        return ax.semilogx
-    else:
-        return ax.plot
-
-
 class Plot(plots.BasePlot):
     """Figure with a single plot of cartesian axes."""
 
@@ -68,6 +57,13 @@ class Plot(plots.BasePlot):
         return plt.axes()
 
     def _render(self, axes: plt.Axes):
-        plot_fn = _get_plot_fn(axes, self._logx, self._logy)
         for obj in self._plot_objects:
-            obj._render(plot_fn)
+            obj._render(axes)
+
+    def _post_render(self, axes: plt.Axes):
+        super()._post_render(axes)
+        
+        if self._logx:
+            axes.set_xscale("log")
+        if self._logy:
+            axes.set_yscale("log")

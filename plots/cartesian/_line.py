@@ -1,7 +1,8 @@
-from typing import Callable, Optional, Sequence
+from typing import Callable, Optional, Sequence, Tuple
 from enum import Enum
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 from ._plot_object import PlotObject
 
@@ -29,11 +30,40 @@ class MarkerType(str, Enum):
     """Star marker."""
 
 
+class _ErrorBars:
+    def __init__(self, data):
+        self._data = data
+
+
 class Line(PlotObject):
     """Line object, can be added to a cartesian plot object."""
 
     Type = LineType
     Marker = MarkerType
+
+    class ErrorBars:
+        """Adds error bars to a line plot."""
+
+        def __init__(self) -> None:
+            """Uncallable. Create ErrorBars through the static methods `symmetric` or
+            `asymmetric`."""
+            raise NotImplementedError
+
+        @property
+        def _data(self) -> Sequence[float]:
+            raise NotImplementedError
+
+        @staticmethod
+        def symmetric(data: Sequence[float]) -> "Line.ErrorBars":
+            """Creates error bars from a sequence of floats. Each value denotes the
+            symmetric +/- value of each data point in the line."""
+            return _ErrorBars(data)
+
+        @staticmethod
+        def asymmetric(data: Sequence[Tuple[float, float]]) -> "Line.ErrorBars":
+            """Creates error bars from a sequence of float-pairs. Each pair denotes the
+            lower and upper error bound, respectively."""
+            return _ErrorBars(np.array(data).transpose())
 
     def __init__(
         self,
@@ -56,7 +86,9 @@ class Line(PlotObject):
                 legend. Defaults to None.
         """
         self._x = x
+        self._x_error = None
         self._y = y
+        self._y_error = None
         self._line_type = line_type
         self._marker_type = marker_type
         self._label = label
@@ -65,7 +97,28 @@ class Line(PlotObject):
             self._y = x
             self._x = np.arange(len(x))
 
-    def _render(self, plot_fn: Callable):
-        plot_fn(
-            self._x, self._y, f"{self._marker_type}{self._line_type}", label=self._label
+    def _render(self, axes: plt.Axes):
+        axes.errorbar(
+            self._x,
+            self._y,
+            self._y_error,
+            self._x_error,
+            fmt=f"{self._marker_type}{self._line_type}",
+            label=self._label,
         )
+
+    def set_x_error_bars(self, error_bars: "Line.ErrorBars"):
+        """Adds error bars to the x-values of the data points.
+
+        Args:
+            error_bars (Line.ErrorBars): Error bars
+        """
+        self._x_error = error_bars._data
+
+    def set_y_error_bars(self, error_bars: "Line.ErrorBars"):
+        """Adds error bars to the y-values of the data points.
+
+        Args:
+            error_bars (Line.ErrorBars): Error bars
+        """
+        self._y_error = error_bars._data
