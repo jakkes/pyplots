@@ -1,4 +1,5 @@
 import os
+import plots
 from plots import cartesian
 import itertools
 import numpy as np
@@ -23,7 +24,7 @@ def test_plots():
         [y1],
         [y2],
         [True],
-        cartesian.Plot.Legend.Location
+        plots.Legend.Location
     )
     for i, arg in enumerate(args):
         plot(i, *arg)
