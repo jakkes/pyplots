@@ -118,7 +118,7 @@ legend. Defaults to None.</dd>
 </dd>
 <dt id="plots.cartesian.Plot"><code class="flex name class">
 <span>class <span class="ident">Plot</span></span>
-<span>(</span><span>size: Tuple[int, int] = (6.4, 4.8), logy: bool = False, logx: bool = False, legend: bool = False, legend_location: Union[ForwardRef('<a title="plots.Legend.Location" href="../index.html#plots.Legend.Location">Legend.Location</a>'), Tuple[int, int]] = Location.BEST)</span>
+<span>(</span><span>size: Tuple[int, int] = (6.4, 4.8), logy: bool = False, logx: bool = False, xlabel: str = '', ylabel: str = '', title: str = '', legend: bool = False, legend_location: Union[ForwardRef('<a title="plots.Legend.Location" href="../index.html#plots.Legend.Location">Legend.Location</a>'), Tuple[int, int]] = Location.BEST)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Figure with a single plot of cartesian axes.</p>
@@ -133,6 +133,12 @@ False.</dd>
 <dt><strong><code>logx</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>If True, the x-axis is logarithmic. Defaults to
 False.</dd>
+<dt><strong><code>xlabel</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Label attached to the x-axis. Defaults to no label.</dd>
+<dt><strong><code>ylabel</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Label attached to the y-axis. Defaults to no label.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Title of the plot. Defaults to no title.</dd>
 <dt><strong><code>legend</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>If True, a legend is displayed. Defaults to False.</dd>
 </dl>
@@ -144,6 +150,74 @@ Determines the location of the legend. Defaults to
 <li>plots._base_plot.BasePlot</li>
 <li>abc.ABC</li>
 </ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="plots.cartesian.Plot.logx"><code class="name">var <span class="ident">logx</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>If True, the x-axis is rendered in logarithmic scale.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def logx(self) -&gt; bool:
+    &#34;&#34;&#34;If True, the x-axis is rendered in logarithmic scale.&#34;&#34;&#34;
+    return self._logx</code></pre>
+</details>
+</dd>
+<dt id="plots.cartesian.Plot.logy"><code class="name">var <span class="ident">logy</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>If True, the y-axis is rendered in logarithmic scale.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def logy(self) -&gt; bool:
+    &#34;&#34;&#34;If True, the y-axis is rendered in logarithmic scale.&#34;&#34;&#34;
+    return self._logy</code></pre>
+</details>
+</dd>
+<dt id="plots.cartesian.Plot.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Title of the plot.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def title(self) -&gt; str:
+    &#34;&#34;&#34;Title of the plot.&#34;&#34;&#34;
+    return self._title</code></pre>
+</details>
+</dd>
+<dt id="plots.cartesian.Plot.xlabel"><code class="name">var <span class="ident">xlabel</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Label attached to the x-axis.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def xlabel(self) -&gt; str:
+    &#34;&#34;&#34;Label attached to the x-axis.&#34;&#34;&#34;
+    return self._xlabel</code></pre>
+</details>
+</dd>
+<dt id="plots.cartesian.Plot.ylabel"><code class="name">var <span class="ident">ylabel</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Label attached to the y-axis.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def ylabel(self) -&gt; str:
+    &#34;&#34;&#34;Label attached to the y-axis.&#34;&#34;&#34;
+    return self._ylabel</code></pre>
+</details>
+</dd>
+</dl>
 <h3>Methods</h3>
 <dl>
 <dt id="plots.cartesian.Plot.add_object"><code class="name flex">
@@ -250,9 +324,14 @@ Determines the location of the legend. Defaults to
 </li>
 <li>
 <h4><code><a title="plots.cartesian.Plot" href="#plots.cartesian.Plot">Plot</a></code></h4>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="plots.cartesian.Plot.add_object" href="#plots.cartesian.Plot.add_object">add_object</a></code></li>
+<li><code><a title="plots.cartesian.Plot.logx" href="#plots.cartesian.Plot.logx">logx</a></code></li>
+<li><code><a title="plots.cartesian.Plot.logy" href="#plots.cartesian.Plot.logy">logy</a></code></li>
 <li><code><a title="plots.cartesian.Plot.remove_object" href="#plots.cartesian.Plot.remove_object">remove_object</a></code></li>
+<li><code><a title="plots.cartesian.Plot.title" href="#plots.cartesian.Plot.title">title</a></code></li>
+<li><code><a title="plots.cartesian.Plot.xlabel" href="#plots.cartesian.Plot.xlabel">xlabel</a></code></li>
+<li><code><a title="plots.cartesian.Plot.ylabel" href="#plots.cartesian.Plot.ylabel">ylabel</a></code></li>
 </ul>
 </li>
 <li>
