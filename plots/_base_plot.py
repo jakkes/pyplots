@@ -32,10 +32,41 @@ class BasePlot(abc.ABC):
         self._size = size
         self._legend = legend
         self._legend_location = legend_location
-        
+
         self._owns_figure = _owns_figure
         self._id: Optional[str] = None
         self._axes: Optional[plt.Axes] = None
+
+    @property
+    def legend(self) -> bool:
+        """If True, the plot is rendered with a legend."""
+        return self._legend
+
+    @legend.setter
+    def legend(self, val: bool):
+        self._legend = val
+
+    @property
+    def legend_location(self) -> "plots.Legend.Location":
+        """Location of the legend in the plot."""
+        return self._legend_location
+
+    @legend_location.setter
+    def legend_location(self, val: "plots.Legend.Location"):
+        self._legend_location = val
+
+    @property
+    def size(self) -> Tuple[float, float]:
+        """Size of the figure in which the plot is rendered."""
+        return self._size
+
+    @size.setter
+    def size(self, val: Tuple[float, float]):
+        if not self._owns_figure:
+            raise AttributeError(
+                "Cannot set size of a plot being rendered in another figure."
+            )
+        self._size = val
 
     @abc.abstractmethod
     def _render(self, axes: plt.Axes):
