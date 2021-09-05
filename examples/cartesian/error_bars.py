@@ -32,8 +32,8 @@ def main():
     error2 = cartesian.Line.ErrorBars(x_error, y2_error)
 
     # Add error bars
-    line1.set_error_bars(error1)
-    line2.set_error_bars(error2)
+    line1.error_bars(error1)
+    line2.error_bars(error2)
 
     # Show plot
     plot.show()
