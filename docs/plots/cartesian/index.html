@@ -49,7 +49,7 @@ __all__ = [&#34;Line&#34;, &#34;Plot&#34;, &#34;PlotObject&#34;, &#34;SubPlots&#
 <dl>
 <dt id="plots.cartesian.Line"><code class="flex name class">
 <span>class <span class="ident">Line</span></span>
-<span>(</span><span>x: Sequence[float], y: Optional[Sequence[float]] = None, *, line_type: <a title="plots.cartesian.Line.Type" href="#plots.cartesian.Line.Type">Line.Type</a> = LineType.SOLID, marker_type: <a title="plots.cartesian.Line.Marker" href="#plots.cartesian.Line.Marker">Line.Marker</a> = MarkerType.NONE, label: Optional[str] = None)</span>
+<span>(</span><span>x: Sequence[float], y: Optional[Sequence[float]] = None, *, color: Union[plots._color.Color, str, None] = None, line_type: <a title="plots.cartesian.Line.Type" href="#plots.cartesian.Line.Type">Line.Type</a> = LineType.SOLID, marker_type: <a title="plots.cartesian.Line.Marker" href="#plots.cartesian.Line.Marker">Line.Marker</a> = MarkerType.NONE, label: Optional[str] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Line object, can be added to a cartesian plot object.</p>
@@ -61,6 +61,11 @@ __all__ = [&#34;Line&#34;, &#34;Plot&#34;, &#34;PlotObject&#34;, &#34;SubPlots&#
 <dd>Vertical axis values. If None, then
 <code>x</code> is used as <code>y</code> and <code>x</code> is replaced by the value indices of <code>y</code>.
 Defaults to None.</dd>
+<dt><strong><code>color</code></strong> :&ensp;<code>Optional[Union[<a title="plots.Color" href="../index.html#plots.Color">Color</a>, str]]</code>, optional</dt>
+<dd>Color in which the plot
+is rendered, either as a pre-defined color or in hex color code. If
+<code>None</code>, then the color is selected automatically from the default color
+cycle.</dd>
 <dt><strong><code>line_type</code></strong> :&ensp;<code><a title="plots.cartesian.Line.Type" href="#plots.cartesian.Line.Type">Line.Type</a></code>, optional</dt>
 <dd>Defaults to LineType.SOLID.</dd>
 <dt><strong><code>marker_type</code></strong> :&ensp;<code>Line.MarkerType</code>, optional</dt>
@@ -91,8 +96,8 @@ legend. Defaults to None.</dd>
 </dl>
 <h3>Methods</h3>
 <dl>
-<dt id="plots.cartesian.Line.set_error_bars"><code class="name flex">
-<span>def <span class="ident">set_error_bars</span></span>(<span>self, error_bars: <a title="plots.cartesian.Line.ErrorBars" href="#plots.cartesian.Line.ErrorBars">Line.ErrorBars</a>)</span>
+<dt id="plots.cartesian.Line.error_bars"><code class="name flex">
+<span>def <span class="ident">error_bars</span></span>(<span>self, error_bars: <a title="plots.cartesian.Line.ErrorBars" href="#plots.cartesian.Line.ErrorBars">Line.ErrorBars</a>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Adds error bars to the x-values of the data points.</p>
@@ -105,7 +110,7 @@ legend. Defaults to None.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def set_error_bars(self, error_bars: &#34;Line.ErrorBars&#34;):
+<pre><code class="python">def error_bars(self, error_bars: &#34;Line.ErrorBars&#34;):
     &#34;&#34;&#34;Adds error bars to the x-values of the data points.
 
     Args:
@@ -319,7 +324,7 @@ Determines the location of the legend. Defaults to
 <li><code><a title="plots.cartesian.Line.ErrorBars" href="#plots.cartesian.Line.ErrorBars">ErrorBars</a></code></li>
 <li><code><a title="plots.cartesian.Line.Marker" href="#plots.cartesian.Line.Marker">Marker</a></code></li>
 <li><code><a title="plots.cartesian.Line.Type" href="#plots.cartesian.Line.Type">Type</a></code></li>
-<li><code><a title="plots.cartesian.Line.set_error_bars" href="#plots.cartesian.Line.set_error_bars">set_error_bars</a></code></li>
+<li><code><a title="plots.cartesian.Line.error_bars" href="#plots.cartesian.Line.error_bars">error_bars</a></code></li>
 </ul>
 </li>
 <li>
