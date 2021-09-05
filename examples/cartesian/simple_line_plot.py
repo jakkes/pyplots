@@ -12,16 +12,17 @@ def main():
     # Create a plot with cartesian axes. Let the plot include a legend.
     plot = cartesian.Plot(legend=True)
 
-    for power in range(1, 6):
-        
-        # Compute y values.
-        y = x ** power
+    # Create a line of y=x
+    line = cartesian.Line(x, x, label="y=x")
 
-        # Create a line of the x and y values.
-        line = cartesian.Line(x, y, label=f"$y=x**{power}$")
+    # Add line to plot
+    plot.add_object(line)
 
-        # Add line to the plot.
-        plot.add_object(line)
+    # Create a line of y=x^2
+    line = cartesian.Line(x, x**2, label="y=x^2")
+
+    # Add line to plot
+    plot.add_object(line)
 
     # Display plot.
     plot.show()
