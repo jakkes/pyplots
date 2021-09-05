@@ -4,6 +4,7 @@ from enum import Enum
 import numpy as np
 import matplotlib.pyplot as plt
 
+import plots
 from ._plot_object import PlotObject
 
 
@@ -68,6 +69,7 @@ class Line(PlotObject):
         x: Sequence[float],
         y: Optional[Sequence[float]] = None,
         *,
+        color: Optional[Union[plots.Color, str]] = None,
         line_type: "Line.Type" = LineType.SOLID,
         marker_type: "Line.Marker" = MarkerType.NONE,
         label: Optional[str] = None,
@@ -78,6 +80,10 @@ class Line(PlotObject):
             y (Optional[Sequence[float]], optional): Vertical axis values. If None, then
                 `x` is used as `y` and `x` is replaced by the value indices of `y`.
                 Defaults to None.
+            color (Optional[Union[plots.Color, str]], optional): Color in which the plot
+                is rendered, either as a pre-defined color or in hex color code. If
+                `None`, then the color is selected automatically from the default color
+                cycle.
             line_type (Line.Type, optional): Defaults to LineType.SOLID.
             marker_type (Line.MarkerType, optional): Defaults to MarkerType.NONE.
             label (Optional[str], optional): If `None`, the line is omitted from the
@@ -86,6 +92,7 @@ class Line(PlotObject):
         self._x = x
         self._y = y
         self._error = None
+        self._color = color
         self._line_type = line_type
         self._marker_type = marker_type
         self._label = label
@@ -101,11 +108,12 @@ class Line(PlotObject):
             self._x,
             self._y,
             fmt=f"{self._marker_type}{self._line_type}",
+            color=self._color,
             label=self._label,
             **error_kwargs
         )
 
-    def set_error_bars(self, error_bars: "Line.ErrorBars"):
+    def error_bars(self, error_bars: "Line.ErrorBars"):
         """Adds error bars to the x-values of the data points.
 
         Args:
