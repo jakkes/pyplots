@@ -1,6 +1,8 @@
-"""Plots functions y=x and y=x^2 for x in (-1, 1)."""
+"""Plots functions y=x and y=x^2 for x in (-1, 1) in two separate windows."""
 
 import numpy as np
+
+import pyplots
 from pyplots import cartesian
 
 
@@ -18,14 +20,17 @@ def main():
     # Add line to plot
     plot.add_object(line)
 
+    # Create a new plot
+    plot2 = cartesian.Plot(legend=True)
+
     # Create a line of y=x^2
-    line = cartesian.Line(x, x**2, label="y=x^2")
+    line2 = cartesian.Line(x, x**2, label="y=x^2")
 
     # Add line to plot
-    plot.add_object(line)
+    plot2.add_object(line2)
 
-    # Display plot.
-    plot.show()
+    # Display plots.
+    pyplots.show(plot, plot2)
 
 
 if __name__ == "__main__":

@@ -110,13 +110,9 @@ class BasePlot(abc.ABC):
         return self._axes
 
     def show(self):
-        """Renders and then displays the plot."""
-        if not self._owns_figure:
-            raise AttributeError("Cannot show plot that is part of another figure.")
-
-        self._render_pipeline(self._get_axes())
-        plt.show()
-        self.close()
+        """Renders and then displays the plot. This is short for
+        `pyplots.show(self)`."""
+        pyplots.show(self)
 
     def close(self):
         """Closes the plot."""
