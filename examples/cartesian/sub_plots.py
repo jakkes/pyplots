@@ -1,4 +1,4 @@
-"""Example of building sub pyplots"""
+"""Example of building subplots"""
 
 import pyplots
 import numpy as np
