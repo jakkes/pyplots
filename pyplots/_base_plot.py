@@ -4,19 +4,19 @@ from typing import Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
 
-import plots
+import pyplots
 
 
 class BasePlot(abc.ABC):
-    """Base class for classes able to render plots."""
+    """Base class for classes able to render pyplots."""
 
     def __init__(
         self,
         size: Tuple[int, int] = (6.4, 4.8),
         legend: bool = False,
         legend_location: Union[
-            "plots.Legend.Location", Tuple[int, int]
-        ] = plots.Legend.Location.BEST,
+            "pyplots.Legend.Location", Tuple[int, int]
+        ] = pyplots.Legend.Location.BEST,
         _owns_figure: bool = True,
     ):
         """
@@ -26,7 +26,7 @@ class BasePlot(abc.ABC):
             legend (bool, optional): If True, a legend is displayed. Defaults to False.
             legend_location (Union[Plot.Legend.Location, Tuple[int, int]], optional):
                 Determines the location of the legend. Defaults to
-                `plots.Legend.Location.BEST`. May also be given in coordinates.
+                `pyplots.Legend.Location.BEST`. May also be given in coordinates.
         """
         super().__init__()
         self._size = size
@@ -47,12 +47,12 @@ class BasePlot(abc.ABC):
         self._legend = val
 
     @property
-    def legend_location(self) -> "plots.Legend.Location":
+    def legend_location(self) -> "pyplots.Legend.Location":
         """Location of the legend in the plot."""
         return self._legend_location
 
     @legend_location.setter
-    def legend_location(self, val: "plots.Legend.Location"):
+    def legend_location(self, val: "pyplots.Legend.Location"):
         self._legend_location = val
 
     @property

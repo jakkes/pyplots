@@ -1,7 +1,7 @@
 """Example of working with error bars."""
 
 import numpy as np
-from plots import cartesian
+from pyplots import cartesian
 
 
 def main():

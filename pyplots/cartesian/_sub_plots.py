@@ -3,10 +3,10 @@ import uuid
 
 import matplotlib.pyplot as plt
 
-import plots
+import pyplots
 
 
-class SubPlots(plots.BasePlot):
+class SubPlots(pyplots.BasePlot):
     """Figure containing multiple subplots of cartesian axes.
     
     A subplot may be accessed by its row and column:
@@ -18,7 +18,7 @@ class SubPlots(plots.BasePlot):
     lower_right = subplots[1, 1]
     ```
     
-    These may then be treated as a `plots.cartesian.Plot`, which is their true type.
+    These may then be treated as a `pyplots.cartesian.Plot`, which is their true type.
     """
 
     def __init__(
@@ -28,8 +28,8 @@ class SubPlots(plots.BasePlot):
         size: Tuple[int, int] = (6.4, 4.8),
         legend: bool = False,
         legend_location: Union[
-            "plots.Legend.Location", Tuple[int, int]
-        ] = plots.Legend.Location.BEST,
+            "pyplots.Legend.Location", Tuple[int, int]
+        ] = pyplots.Legend.Location.BEST,
         _owns_figure: bool = True,
     ):
         """
@@ -41,7 +41,7 @@ class SubPlots(plots.BasePlot):
             legend (bool, optional): If True, a legend is displayed. Defaults to False.
             legend_location (Union[Plot.Legend.Location, Tuple[int, int]], optional):
                 Determines the location of the legend. Defaults to
-                `plots.Legend.Location.BEST`. May also be given in coordinates.
+                `pyplots.Legend.Location.BEST`. May also be given in coordinates.
         """
         super().__init__(
             size=size,
@@ -53,7 +53,7 @@ class SubPlots(plots.BasePlot):
         self._cols = cols
 
         self._plots = [
-            [plots.cartesian.Plot(_owns_figure=False) for _ in range(cols)]
+            [pyplots.cartesian.Plot(_owns_figure=False) for _ in range(cols)]
             for _ in range(rows)
         ]
 
@@ -71,6 +71,6 @@ class SubPlots(plots.BasePlot):
             for col in range(self._cols):
                 self[row, col]._render_pipeline(axes[row][col])
 
-    def __getitem__(self, rowcol: Tuple[int, int]) -> "plots.cartesian.Plot":
+    def __getitem__(self, rowcol: Tuple[int, int]) -> "pyplots.cartesian.Plot":
         row, col = rowcol
         return self._plots[row][col]

@@ -188,7 +188,7 @@ class Color(str, Enum):
 
     @staticmethod
     def get_default_color_cycle() -> List[str]:
-        """Returns the default color cycle used in plots.
+        """Returns the default color cycle used in pyplots.
 
         Returns:
             List[str]: List of hex color codes.
@@ -197,7 +197,7 @@ class Color(str, Enum):
 
     @staticmethod
     def set_default_color_cycle(colors: Sequence[str]):
-        """Sets the default color cycle used in plots.
+        """Sets the default color cycle used in pyplots.
 
         Args:
             colors (Sequence[str]): Sequence of hex color codes.

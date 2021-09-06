@@ -1,7 +1,7 @@
 """Plots functions y=x, y=x^2, ..., y=x^5, for x in (-1, 1)."""
 
 import numpy as np
-from plots import cartesian
+from pyplots import cartesian
 
 
 def main():

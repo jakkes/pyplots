@@ -1,8 +1,8 @@
 import os
 
 from matplotlib.legend import Legend
-import plots
-from plots import cartesian
+import pyplots
+from pyplots import cartesian
 import itertools
 import numpy as np
 
@@ -28,7 +28,7 @@ def test_plots():
         [True, False],
         [True, False],
         [True],
-        [plots.Legend.Location.BEST, plots.Legend.Location.CENTER]
+        [pyplots.Legend.Location.BEST, pyplots.Legend.Location.CENTER]
     )
     for i, arg in enumerate(args):
         plot(i, *arg)

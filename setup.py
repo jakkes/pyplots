@@ -13,7 +13,7 @@ setuptools.setup(
     description="Wraps matplotlib for easier plotting.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/jakkes/plots",
+    url="https://github.com/jakkes/pyplots",
     packages=setuptools.find_packages(),
     classifiers=(
         "Programming Language :: Python :: 3",
