@@ -9,8 +9,8 @@ steps:
   commands:
   - pip install pdoc3 -r requirements.txt
   - pytest
-  - rm -rf ./docs/plots/
-  - pdoc3 ./plots --html -o docs
+  - rm -rf ./docs/pyplots/
+  - pdoc3 ./pyplots --html -o docs
 - name: publish
   image: python:3.7.9-slim
   environment:

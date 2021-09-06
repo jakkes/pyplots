@@ -1,27 +1,27 @@
-"""Example of building sub plots"""
+"""Example of building subplots"""
 
-import plots
+import pyplots
 import numpy as np
 
 
 def main():
     # Create sub plot of two rows and columns
-    plot = plots.cartesian.SubPlots(2, 2)
+    plot = pyplots.cartesian.SubPlots(2, 2)
 
     # x values for plotting
     x = np.linspace(-1, 1, 100)
     
     # upper left line
-    line_ul = plots.cartesian.Line(x, x ** 0)
+    line_ul = pyplots.cartesian.Line(x, x ** 0)
 
     # upper right line
-    line_ur = plots.cartesian.Line(x, x ** 1)
+    line_ur = pyplots.cartesian.Line(x, x ** 1)
 
     # lower left line
-    line_ll = plots.cartesian.Line(x, x ** 3)
+    line_ll = pyplots.cartesian.Line(x, x ** 3)
 
     # Lower right line
-    line_lr = plots.cartesian.Line(x, x ** 4)
+    line_lr = pyplots.cartesian.Line(x, x ** 4)
 
     # Add lines
     plot[0, 0].add_object(line_ul)

@@ -3,7 +3,7 @@ from subprocess import run
 
 import requests
 
-from plots import __version__
+from pyplots import __version__
 
 HOST = "https://pypi.org/pypi/pyplots"
 
@@ -23,10 +23,10 @@ def upload():
 
 
 def set_version(version):
-    with open("plots/__init__.py", "r") as f:
+    with open("pyplots/__init__.py", "r") as f:
         data = f.read()
     data.replace("<%<%VERSION%>%>", version)
-    with open("plots/__init__.py", "w") as f:
+    with open("pyplots/__init__.py", "w") as f:
         f.write(data)
 
 

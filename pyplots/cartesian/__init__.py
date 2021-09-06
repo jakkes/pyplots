@@ -1,4 +1,4 @@
-"""Tools for building plots in a cartesian coordinate system."""
+"""Tools for building pyplots in a cartesian coordinate system."""
 
 
 from ._plot_object import PlotObject

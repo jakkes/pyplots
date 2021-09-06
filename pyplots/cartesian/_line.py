@@ -4,7 +4,7 @@ from enum import Enum
 import numpy as np
 import matplotlib.pyplot as plt
 
-import plots
+import pyplots
 from ._plot_object import PlotObject
 
 
@@ -69,7 +69,7 @@ class Line(PlotObject):
         x: Sequence[float],
         y: Optional[Sequence[float]] = None,
         *,
-        color: Optional[Union[plots.Color, str]] = None,
+        color: Optional[Union[pyplots.Color, str]] = None,
         line_type: "Line.Type" = LineType.SOLID,
         marker_type: "Line.Marker" = MarkerType.NONE,
         label: Optional[str] = None,
@@ -80,7 +80,7 @@ class Line(PlotObject):
             y (Optional[Sequence[float]], optional): Vertical axis values. If None, then
                 `x` is used as `y` and `x` is replaced by the value indices of `y`.
                 Defaults to None.
-            color (Optional[Union[plots.Color, str]], optional): Color in which the plot
+            color (Optional[Union[pyplots.Color, str]], optional): Color in which the plot
                 is rendered, either as a pre-defined color or in hex color code. If
                 `None`, then the color is selected automatically from the default color
                 cycle.

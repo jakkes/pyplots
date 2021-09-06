@@ -3,11 +3,11 @@ import uuid
 
 import matplotlib.pyplot as plt
 
-import plots
-import plots.cartesian as cartesian
+import pyplots
+import pyplots.cartesian as cartesian
 
 
-class Plot(plots.BasePlot):
+class Plot(pyplots.BasePlot):
     """Figure with a single plot of cartesian axes."""
 
     def __init__(
@@ -20,8 +20,8 @@ class Plot(plots.BasePlot):
         title: str = "",
         legend: bool = False,
         legend_location: Union[
-            "plots.Legend.Location", Tuple[int, int]
-        ] = plots.Legend.Location.BEST,
+            "pyplots.Legend.Location", Tuple[int, int]
+        ] = pyplots.Legend.Location.BEST,
         _owns_figure: bool = True,
     ):
         """
