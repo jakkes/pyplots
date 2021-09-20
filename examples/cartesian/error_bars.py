@@ -16,10 +16,10 @@ def main():
 
     # Create lines and add them to the plot
     line1 = cartesian.Line(x, y1, label="y=x^2")
-    plot.add_object(line1)
+    plot.add(line1)
     
     line2 = cartesian.Line(x, y2, label="y=x^4")
-    plot.add_object(line2)
+    plot.add(line2)
     
     # Assume x contains up to 5% error, for whatever reason, and that the error is
     # propagated to y.

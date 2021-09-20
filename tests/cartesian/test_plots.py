@@ -9,8 +9,8 @@ import numpy as np
 
 def plot(i, x, y1, y2, logx, logy, legend, legend_location):
     plt = cartesian.Plot(logx=logx, logy=logy, legend=legend, legend_location=legend_location)
-    plt.add_object(cartesian.Line(x, y1, label="Line one"))
-    plt.add_object(cartesian.Line(x, y2, label="Line two"))
+    plt.add(cartesian.Line(x, y1, label="Line one"))
+    plt.add(cartesian.Line(x, y2, label="Line two"))
     plt.save(f"local/tests/cartesian/test_plots/logx-{logx}-logy-{logy}-legend_loc-{legend_location}.png")
 
 

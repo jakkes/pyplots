@@ -18,7 +18,7 @@ def main():
     line = cartesian.Line(x, x, label="y=x")
 
     # Add line to plot
-    plot.add_object(line)
+    plot.add(line)
 
     # Create a new plot
     plot2 = cartesian.Plot(legend=True)
@@ -27,7 +27,7 @@ def main():
     line2 = cartesian.Line(x, x**2, label="y=x^2")
 
     # Add line to plot
-    plot2.add_object(line2)
+    plot2.add(line2)
 
     # Display plots.
     pyplots.show(plot, plot2)

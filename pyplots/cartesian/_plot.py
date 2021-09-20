@@ -101,7 +101,7 @@ class Plot(pyplots.BasePlot):
     def title(self, val: str):
         self._title = val
 
-    def add_object(self, obj: cartesian.PlotObject):
+    def add(self, obj: cartesian.PlotObject):
         self._plot_objects[obj] = None
 
     def remove_object(self, obj: cartesian.PlotObject):

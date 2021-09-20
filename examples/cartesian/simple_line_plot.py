@@ -16,13 +16,13 @@ def main():
     line = cartesian.Line(x, x, label="y=x")
 
     # Add line to plot
-    plot.add_object(line)
+    plot.add(line)
 
     # Create a line of y=x^2
     line = cartesian.Line(x, x**2, label="y=x^2")
 
     # Add line to plot
-    plot.add_object(line)
+    plot.add(line)
 
     # Display plot.
     plot.show()

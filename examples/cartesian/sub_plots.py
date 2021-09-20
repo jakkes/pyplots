@@ -24,10 +24,10 @@ def main():
     line_lr = pyplots.cartesian.Line(x, x ** 4)
 
     # Add lines
-    plot[0, 0].add_object(line_ul)
-    plot[0, 1].add_object(line_ur)
-    plot[1, 0].add_object(line_ll)
-    plot[1, 1].add_object(line_lr)
+    plot[0, 0].add(line_ul)
+    plot[0, 1].add(line_ur)
+    plot[1, 0].add(line_ll)
+    plot[1, 1].add(line_lr)
 
     # Show plot
     plot.show()
