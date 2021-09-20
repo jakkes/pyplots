@@ -49,10 +49,10 @@ class SubPlots(pyplots.BasePlot):
             legend_location=legend_location,
             _owns_figure=_owns_figure,
         )
-        self._rows = rows
-        self._cols = cols
+        self.rows = rows
+        self.cols = cols
 
-        self._plots = [
+        self.__plots = [
             [pyplots.cartesian.Plot(_owns_figure=False) for _ in range(cols)]
             for _ in range(rows)
         ]
@@ -60,17 +60,17 @@ class SubPlots(pyplots.BasePlot):
     def _generate_axes(self) -> plt.Axes:
         return [
             [
-                plt.subplot(self._rows, self._cols, 1 + col + self._cols * row)
-                for col in range(self._cols)
+                plt.subplot(self.rows, self.cols, 1 + col + self.cols * row)
+                for col in range(self.cols)
             ]
-            for row in range(self._rows)
+            for row in range(self.rows)
         ]
 
     def _render(self, axes: plt.Axes):
-        for row in range(self._rows):
-            for col in range(self._cols):
+        for row in range(self.rows):
+            for col in range(self.cols):
                 self[row, col]._render_pipeline(axes[row][col])
 
     def __getitem__(self, rowcol: Tuple[int, int]) -> "pyplots.cartesian.Plot":
         row, col = rowcol
-        return self._plots[row][col]
+        return self.__plots[row][col]

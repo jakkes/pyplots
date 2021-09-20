@@ -6,10 +6,11 @@ from ._legend import Legend
 from ._color import Color
 from ._base_plot import BasePlot
 from ._show import show
+from . import text
 from . import cartesian
 
 
-__all__ = ["cartesian", "Legend", "BasePlot", "Color", "show"]
+__all__ = ["cartesian", "Legend", "BasePlot", "Color", "show", "text"]
 __version__ = "<%<%VERSION%>%>"
 
 
