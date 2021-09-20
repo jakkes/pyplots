@@ -33,9 +33,10 @@
 from ._plot_object import PlotObject
 from ._plot import Plot
 from ._line import Line
+from ._scatter import Scatter
 from ._sub_plots import SubPlots
 
-__all__ = [&#34;Line&#34;, &#34;Plot&#34;, &#34;PlotObject&#34;, &#34;SubPlots&#34;]</code></pre>
+__all__ = [&#34;Line&#34;, &#34;Plot&#34;, &#34;PlotObject&#34;, &#34;SubPlots&#34;, &#34;Scatter&#34;]</code></pre>
 </details>
 </section>
 <section>
@@ -198,6 +199,28 @@ inheritance.</p></div>
 <h3>Subclasses</h3>
 <ul class="hlist">
 <li><a title="pyplots.cartesian.Line" href="#pyplots.cartesian.Line">Line</a></li>
+<li><a title="pyplots.cartesian.Scatter" href="#pyplots.cartesian.Scatter">Scatter</a></li>
+</ul>
+</dd>
+<dt id="pyplots.cartesian.Scatter"><code class="flex name class">
+<span>class <span class="ident">Scatter</span></span>
+<span>(</span><span>x: Sequence[float], y: Sequence[float], s: Sequence[float])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Scatter plot object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>Sequence[float]</code></dt>
+<dd>x-coordinates of markers.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>Sequence[float]</code></dt>
+<dd>y-coordinates of markers.</dd>
+<dt><strong><code>s</code></strong> :&ensp;<code>Sequence[float]</code></dt>
+<dd>sizes of markers.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyplots.cartesian.PlotObject" href="#pyplots.cartesian.PlotObject">PlotObject</a></li>
+<li>abc.ABC</li>
 </ul>
 </dd>
 <dt id="pyplots.cartesian.SubPlots"><code class="flex name class">
@@ -268,6 +291,9 @@ Determines the location of the legend. Defaults to
 </li>
 <li>
 <h4><code><a title="pyplots.cartesian.PlotObject" href="#pyplots.cartesian.PlotObject">PlotObject</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pyplots.cartesian.Scatter" href="#pyplots.cartesian.Scatter">Scatter</a></code></h4>
 </li>
 <li>
 <h4><code><a title="pyplots.cartesian.SubPlots" href="#pyplots.cartesian.SubPlots">SubPlots</a></code></h4>
