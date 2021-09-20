@@ -225,8 +225,8 @@ def ylabel(self) -&gt; str:
 </dl>
 <h3>Methods</h3>
 <dl>
-<dt id="pyplots.cartesian.Plot.add_object"><code class="name flex">
-<span>def <span class="ident">add_object</span></span>(<span>self, obj: <a title="pyplots.cartesian.PlotObject" href="#pyplots.cartesian.PlotObject">PlotObject</a>)</span>
+<dt id="pyplots.cartesian.Plot.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>self, obj: <a title="pyplots.cartesian.PlotObject" href="#pyplots.cartesian.PlotObject">PlotObject</a>)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -234,7 +234,7 @@ def ylabel(self) -&gt; str:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def add_object(self, obj: cartesian.PlotObject):
+<pre><code class="python">def add(self, obj: cartesian.PlotObject):
     self._plot_objects[obj] = None</code></pre>
 </details>
 </dd>
@@ -330,7 +330,7 @@ Determines the location of the legend. Defaults to
 <li>
 <h4><code><a title="pyplots.cartesian.Plot" href="#pyplots.cartesian.Plot">Plot</a></code></h4>
 <ul class="two-column">
-<li><code><a title="pyplots.cartesian.Plot.add_object" href="#pyplots.cartesian.Plot.add_object">add_object</a></code></li>
+<li><code><a title="pyplots.cartesian.Plot.add" href="#pyplots.cartesian.Plot.add">add</a></code></li>
 <li><code><a title="pyplots.cartesian.Plot.logx" href="#pyplots.cartesian.Plot.logx">logx</a></code></li>
 <li><code><a title="pyplots.cartesian.Plot.logy" href="#pyplots.cartesian.Plot.logy">logy</a></code></li>
 <li><code><a title="pyplots.cartesian.Plot.remove_object" href="#pyplots.cartesian.Plot.remove_object">remove_object</a></code></li>
