@@ -11,9 +11,9 @@ class Format:
     
     alpha: float = None
 
-    backgroundcolor: pyplots.Color = pyplots.Color.WHITE
+    backgroundcolor: "pyplots.Color" = pyplots.Color.WHITE
 
-    color: pyplots.Color = pyplots.Color.BLACK
+    color: "pyplots.Color" = pyplots.Color.BLACK
 
     fontsize: float = 12
 

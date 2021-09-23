@@ -56,19 +56,19 @@ class Plot(pyplots.BasePlot):
         self.xlabel: str = xlabel
         """Label attached to the x-axis."""
 
-        self.xlabel_format: pyplots.text.Format = pyplots.text.Format()
+        self.xlabel_format: "pyplots.text.Format" = pyplots.text.Format()
         """Format of the x-axis label."""
         
         self.ylabel: str = ylabel
         """Label attached to the y-axis."""
 
-        self.ylabel_format: pyplots.text.Format = pyplots.text.Format()
+        self.ylabel_format: "pyplots.text.Format" = pyplots.text.Format()
         """Format of the y-axis label."""
         
         self.title: str = title
         """Title of the plot."""
 
-        self.title_format: pyplots.text.Format = pyplots.text.Format()
+        self.title_format: "pyplots.text.Format" = pyplots.text.Format()
         """Format of the title text."""
         
         self.xticks: List[float] = None
@@ -86,7 +86,7 @@ class Plot(pyplots.BasePlot):
         self.yticks_labels: List[str] = None
         """Labels of the shown ticks. Must have the same length as `yticks`."""
 
-        self.yticks_format: pyplots.text.Format = pyplots.text.Format()
+        self.yticks_format: "pyplots.text.Format" = pyplots.text.Format()
         """Format object of the yticks."""
 
         # Dictionary of object -> None, works like a ordered hash set.
