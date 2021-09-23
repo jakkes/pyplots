@@ -225,7 +225,7 @@ inheritance.</p></div>
 </dd>
 <dt id="pyplots.cartesian.SubPlots"><code class="flex name class">
 <span>class <span class="ident">SubPlots</span></span>
-<span>(</span><span>rows: int, cols: int, size: Tuple[int, int] = (6.4, 4.8), legend: bool = False, legend_location: Union[ForwardRef('<a title="pyplots.Legend.Location" href="../index.html#pyplots.Legend.Location">Legend.Location</a>'), Tuple[int, int]] = Location.BEST)</span>
+<span>(</span><span>rows: int, cols: int, size: Tuple[int, int] = (6.4, 4.8), sharex: bool = False, sharey: bool = False, legend: bool = False, legend_location: Union[ForwardRef('<a title="pyplots.Legend.Location" href="../index.html#pyplots.Legend.Location">Legend.Location</a>'), Tuple[int, int]] = Location.BEST)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Figure containing multiple subplots of cartesian axes.</p>
@@ -237,6 +237,13 @@ lower_left = subplots[1, 0]
 lower_right = subplots[1, 1]
 </code></pre>
 <p>These may then be treated as a <code><a title="pyplots.cartesian.Plot" href="#pyplots.cartesian.Plot">Plot</a></code>, which is their true type.</p>
+<p>Alternatively, subplots are accessed by their single row-major ordered index:</p>
+<pre><code class="language-python">subplots = SubPlots(2, 2)
+upper_left = subplots[0]
+upper_right = subplots[1]
+lower_left = subplots[2]
+lower_right = subplots[3]
+</code></pre>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>rows</code></strong> :&ensp;<code>int</code></dt>
@@ -245,6 +252,12 @@ lower_right = subplots[1, 1]
 <dd>Number of columns.</dd>
 <dt>size (Tuple[int, int], optional):Size of the figure in inches,</dt>
 <dt><code>(width, height)</code>. Defaults to (6.4, 4.8).</dt>
+<dt><strong><code>sharex</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, all plots use the same range on the x-axis.
+Defaults to <code>False</code>.</dd>
+<dt><strong><code>sharey</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If <code>True</code>, all plots use the same range on the y-axis.
+Defaults to <code>False</code>.</dd>
 <dt><strong><code>legend</code></strong> :&ensp;<code>bool</code>, optional</dt>
 <dd>If True, a legend is displayed. Defaults to False.</dd>
 </dl>
@@ -256,6 +269,35 @@ Determines the location of the legend. Defaults to
 <li>pyplots._base_plot.BasePlot</li>
 <li>abc.ABC</li>
 </ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pyplots.cartesian.SubPlots.cols"><code class="name">var <span class="ident">cols</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Number of columns in the subplot.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def cols(self) -&gt; int:
+    &#34;&#34;&#34;Number of columns in the subplot.&#34;&#34;&#34;
+    return self.__cols</code></pre>
+</details>
+</dd>
+<dt id="pyplots.cartesian.SubPlots.rows"><code class="name">var <span class="ident">rows</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Number of rows in the subplot.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def rows(self) -&gt; int:
+    &#34;&#34;&#34;Number of rows in the subplot.&#34;&#34;&#34;
+    return self.__rows</code></pre>
+</details>
+</dd>
+</dl>
 </dd>
 </dl>
 </section>
@@ -297,6 +339,10 @@ Determines the location of the legend. Defaults to
 </li>
 <li>
 <h4><code><a title="pyplots.cartesian.SubPlots" href="#pyplots.cartesian.SubPlots">SubPlots</a></code></h4>
+<ul class="">
+<li><code><a title="pyplots.cartesian.SubPlots.cols" href="#pyplots.cartesian.SubPlots.cols">cols</a></code></li>
+<li><code><a title="pyplots.cartesian.SubPlots.rows" href="#pyplots.cartesian.SubPlots.rows">rows</a></code></li>
+</ul>
 </li>
 </ul>
 </li>
