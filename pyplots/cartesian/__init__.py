@@ -4,7 +4,8 @@
 from ._plot_object import PlotObject
 from ._plot import Plot
 from ._line import Line
+from ._grid import Grid
 from ._scatter import Scatter
 from ._sub_plots import SubPlots
 
-__all__ = ["Line", "Plot", "PlotObject", "SubPlots", "Scatter"]
+__all__ = ["Line", "Plot", "PlotObject", "SubPlots", "Scatter", "Grid"]
