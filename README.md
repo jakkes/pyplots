@@ -1,5 +1,5 @@
 # PyPlots
-[![Build Status](http://drone.jakke.se/api/badges/jakkes/pyplots/status.svg)](http://drone.jakke.se/jakkes/pyplots)
+[![Build status](https://github.com/jakkes/pyplots/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/jakkes/pyplots/actions/workflows/python-app.yml)
 
 Wraps matplotlib into easier plotting utilities. 
 
