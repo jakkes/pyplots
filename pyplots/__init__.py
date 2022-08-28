@@ -11,7 +11,7 @@ from . import cartesian
 
 
 __all__ = ["cartesian", "Legend", "BasePlot", "Color", "show", "text"]
-__version__ = "0.2.4"
+__version__ = "0.2.5"
 
 
 def _fix_pdoc():
