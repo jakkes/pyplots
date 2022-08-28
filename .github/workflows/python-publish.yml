@@ -9,19 +9,50 @@
 name: Upload Python Package
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: [ "main" ]
 
 permissions:
   contents: read
 
 jobs:
-  deploy:
-
+  tag:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+    - name: Install
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install --editable .
+    - name: Get tags
+      run: git fetch --tags
+    - name: Check for missing version tag
+      run: |
+        if ! git tag | grep -x v$(cat VERSION); then
+          git config --global user.name 'Bot Jakke'
+          git config --global user.email 'bot@jakke.se'
+          git commit --allow-empty -am "Bump version"
+          git push
+          git tag v$(cat VERSION)
+          git push origin v$(cat VERSION)
+        else
+          [[ "a" == "b" ]]
+        fi
+
+  publish:
+    needs: [ "tag" ]
+    if: ${{ success() }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Checkout tag
+      run: |
+        git fetch --tags
+        git checkout v$(cat VERSION)
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
