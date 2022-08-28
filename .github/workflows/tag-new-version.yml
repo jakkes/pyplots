@@ -26,6 +26,7 @@ jobs:
           git config --global user.name 'Bot Jakke'
           git config --global user.email 'bot@jakke.se'
           git commit --allow-empty -am "Bump version"
+          git push
           git tag v$(cat VERSION)
-          git push --follow-tags
+          git push origin v$(cat VERSION)
         fi
