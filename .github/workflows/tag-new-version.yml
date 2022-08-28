@@ -27,6 +27,5 @@ jobs:
           git config --global user.email 'bot@jakke.se'
           git commit --allow-empty -am "Bump version"
           git tag v$(cat VERSION)
-          git tag | grep -x v$(cat VERSION)
           git push --follow-tags
         fi
