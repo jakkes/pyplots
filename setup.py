@@ -1,9 +1,12 @@
+import pathlib
 import setuptools
 
-with open("README.md", "r") as fh:
+HERE = pathlib.Path(__file__).parent
+
+with open(HERE / "README.md", "r") as fh:
     long_description = fh.read()
 
-with open("VERSION", "r") as f:
+with open(HERE / "VERSION", "r") as f:
     version = f.read()
 
 setuptools.setup(
