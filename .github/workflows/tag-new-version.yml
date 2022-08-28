@@ -21,12 +21,12 @@ jobs:
     - name: Get tags
       run: git fetch --tags
     - name: Check for missing version tag
-      run: git tag | grep -x v$(cat VERSION)
-    - name: Create and push tag
-      if: ${{ failure() }}
       run: |
-        git config --global user.name 'Bot Jakke'
-        git config --global user.email 'bot@jakke.se'
-        git commit --allow-empty -am "Bump version"
-        git tag v$(cat VERSION)
-        git push --follow-tags
+        if ! git tag | grep -x v$(cat VERSION); then
+          git config --global user.name 'Bot Jakke'
+          git config --global user.email 'bot@jakke.se'
+          git commit --allow-empty -am "Bump version"
+          git tag v$(cat VERSION)
+          git tag | grep -x v$(cat VERSION)
+          git push --follow-tags
+        fi
