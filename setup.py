@@ -1,3 +1,4 @@
+import re
 import pathlib
 import setuptools
 
@@ -8,6 +9,13 @@ with open(HERE / "README.md", "r") as fh:
 
 with open(HERE / "VERSION", "r") as f:
     version = f.read()
+
+with open(HERE / "pyplots" / "__init__.py", "r") as f:
+    init = f.read()
+with open(HERE / "pyplots" / "__init__.py", "w") as f:
+    f.write(
+        re.sub(r'\_\_version\_\_\s*=\s*"\d+\.\d+\.\d+"', f'__version__ = "{version}"', init)
+    )
 
 setuptools.setup(
     name="pyplots",

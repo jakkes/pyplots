@@ -1,0 +1,13 @@
+name: Tag new version
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: c
