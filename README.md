@@ -9,7 +9,7 @@ pip install pyplots
 ```
 
 ## Documentation
-https://jakkes.github.io/pyplots/
+https://jakkes.github.io/pyplots/pyplots
 
 ## Examples
 https://github.com/jakkes/pyplots/tree/main/examples
