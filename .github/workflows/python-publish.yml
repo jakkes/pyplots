@@ -15,6 +15,8 @@ on:
 jobs:
   tag:
     runs-on: ubuntu-latest
+    outputs:
+      should_publish: ${{ steps.tagging.outputs.should_publish }}
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.9
@@ -28,6 +30,7 @@ jobs:
     - name: Get tags
       run: git fetch --tags
     - name: Check for missing version tag
+      id: tagging
       run: |
         if ! git tag | grep -x v$(cat VERSION); then
           git config user.name 'github-actions'
@@ -36,13 +39,14 @@ jobs:
           git push
           git tag v$(cat VERSION)
           git push origin v$(cat VERSION)
+          echo "::set-output name=should_publish::true"
         else
-          [[ "a" == "b" ]]
+          echo "::set-output name=should_publish::false"
         fi
 
   publish:
-    needs: [ "tag" ]
-    if: ${{ success() }}
+    needs: [ tag ]
+    if: ${{ fromJSON(needs.tag.outputs.should_publish) }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
