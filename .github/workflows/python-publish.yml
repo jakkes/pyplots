@@ -30,7 +30,7 @@ jobs:
         python -m pip install --editable .
     - name: Get tags
       run: git fetch --tags
-    - uses: actions/checkout@v3
+    - name: Check for missing version tag
       run: |
         if ! git tag | grep -x v$(cat VERSION); then
           git config --global user.name 'Bot Jakke'
